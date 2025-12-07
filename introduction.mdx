@@ -1,0 +1,75 @@
+---
+title: Introduction
+description: Overview of Neuroglia Solutions and their innovative AI and digital solutions for clinical practice in Mexico
+---
+
+## Getting Started
+
+Neuroglia Solutions provides cutting-edge AI and digital technologies to optimize clinical practice across Mexico. Our platform enhances every stage of medical care through intelligent automation and data-driven insights. Whether you're a healthcare provider or administrator, our solutions streamline workflows and improve patient outcomes.
+
+<Columns cols={3}>
+  <Card title="AI-Powered Diagnostics" icon="cpu" href="/ai-solutions">
+    Leverage machine learning for accurate and rapid diagnostic assistance.
+  </Card>
+  <Card title="Clinical Integration" icon="link" href="/clinical-integration">
+    Seamlessly integrate with existing hospital systems and workflows.
+  </Card>
+  <Card title="Patient Management" icon="users" href="/patient-management">
+    Comprehensive tools for patient tracking and care coordination.
+  </Card>
+</Columns>
+
+## Key Features
+
+Our platform offers a suite of features designed to transform healthcare delivery:
+
+<Callout kind="info">All our solutions comply with Mexican healthcare regulations and data privacy standards.</Callout>
+
+<Steps>
+  <Step title="Onboard Your Practice" icon="user-plus">
+    Register your healthcare facility and configure integration settings.
+  </Step>
+  <Step title="Implement AI Solutions" icon="cpu">
+    Deploy diagnostic assistants and predictive analytics tools.
+  </Step>
+  <Step title="Monitor and Optimize" icon="bar-chart">
+    Track performance metrics and refine workflows for better outcomes.
+  </Step>
+</Steps>
+
+<Tabs>
+  <Tab title="Hospitals" icon="building">
+    Large-scale implementations with enterprise-grade security and scalability.
+  </Tab>
+  <Tab title="Clinics" icon="stethoscope">
+    Tailored solutions for smaller practices with flexible deployment options.
+  </Tab>
+</Tabs>
+
+<ExpandableGroup>
+  <Expandable title="What makes Neuroglia unique?" default-open="false">
+    Our deep understanding of Mexican healthcare challenges, combined with advanced AI, sets us apart.
+  </Expandable>
+  <Expandable title="Is the platform secure?" default-open="false">
+    Yes, we employ bank-level encryption and comply with all relevant data protection regulations.
+  </Expandable>
+</ExpandableGroup>
+
+## Quick Start
+
+Getting started is straightforward:
+
+```javascript
+const neuroglia = require('neuroglia-sdk');
+
+neuroglia.init({
+  apiKey: 'your-api-key',
+  region: 'mexico'
+});
+
+// Integrate with your clinical systems
+const integration = await neuroglia.integrate({
+  systemType: 'hospital-emr',
+  endpoint: 'https://hospital.example.com/api'
+});
+```

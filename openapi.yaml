@@ -1,0 +1,155 @@
+openapi: '3.0.0'
+info:
+  version: 1.0.0
+  title: Neuroglia API
+  license:
+    name: MIT
+servers:
+  - url: https://api.neuroglia.mx/v1
+paths:
+  /patients:
+    get:
+      summary: Retrieve a paginated list of all patients registered in the Neuroglia platform. This endpoint allows healthcare providers to access patient information for care coordination and clinical decision-making. It supports filtering by admission status and department, and includes basic demographic and clinical data to facilitate efficient patient management across Mexican healthcare facilities.
+      operationId: listPatients
+      parameters:
+        - name: limit
+          in: query
+          description: Number of patients to retrieve per page, maximum 100 for performance optimization
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: Successful response with paginated patient list including demographic and clinical summary information
+          headers:
+            x-next:
+              description: URL for retrieving the next page of results when available
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patients'
+        default:
+          description: Error response for failed patient retrieval requests, including authentication failures or system errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Register a new patient in the Neuroglia healthcare platform. This endpoint enables seamless patient onboarding with automatic validation of Mexican identification data and health insurance information. It creates a comprehensive patient profile that integrates with clinical workflows, ensuring accurate record-keeping and compliance with healthcare regulations across the platform.
+      operationId: createPatient
+      responses:
+        201:
+          description: Patient successfully created with unique identifier and initial profile data
+        default:
+          description: Error response for patient creation failures, such as validation errors or system constraints
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /patients/{patientId}:
+    get:
+      summary: Retrieve detailed information for a specific patient by their unique identifier. This endpoint provides comprehensive patient data including medical history, current treatments, and care team assignments. Healthcare providers use this to access complete patient profiles for informed clinical decision-making and coordinated care delivery in Mexican healthcare settings.
+      operationId: showPatientById
+      parameters:
+        - name: patientId
+          in: path
+          required: true
+          description: Unique identifier for the patient record in the Neuroglia system
+          schema:
+            type: string
+      responses:
+        200:
+          description: Complete patient profile with demographic, clinical, and administrative information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patients'
+        default:
+          description: Error response for patient retrieval failures, including not found or access denied scenarios
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update an existing patient's information in the Neuroglia platform. This endpoint allows authorized healthcare staff to modify patient records with new clinical data, treatment updates, or demographic changes. It ensures data integrity and audit trails for all modifications, supporting compliance with Mexican healthcare data management standards.
+      operationId: updatePatient
+      responses:
+        200:
+          description: Patient record successfully updated with new information
+        default:
+          description: Error response for update failures, such as validation errors or concurrent modification conflicts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /diagnostics:
+    get:
+      summary: Retrieve a list of diagnostic procedures and results available in the Neuroglia platform. This endpoint provides access to AI-assisted diagnostic tools and historical test results for patients. Healthcare professionals can use this to review diagnostic capabilities, access AI recommendations, and integrate diagnostic workflows with patient care plans in clinical practice.
+      operationId: listDiagnostics
+      parameters:
+        - name: patientId
+          in: query
+          description: Optional patient identifier to filter diagnostics for a specific individual
+          required: false
+          schema:
+            type: string
+      responses:
+        200:
+          description: List of diagnostic procedures with results, AI insights, and recommendations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diagnostics'
+        default:
+          description: Error response for diagnostic retrieval failures
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Patient:
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        diagnosis:
+          type: string
+    Patients:
+      type: array
+      items:
+        $ref: '#/components/schemas/Patient'
+    Diagnostic:
+      required:
+        - id
+        - type
+      properties:
+        id:
+          type: integer
+          format: int64
+        type:
+          type: string
+        result:
+          type: string
+    Diagnostics:
+      type: array
+      items:
+        $ref: '#/components/schemas/Diagnostic'
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

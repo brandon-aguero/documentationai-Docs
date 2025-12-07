@@ -1,0 +1,87 @@
+---
+title: Clinical Integration
+description: Learn how to seamlessly integrate Neuroglia solutions with existing hospital systems and workflows
+---
+
+## System Integration
+
+Neuroglia's platform integrates smoothly with existing hospital information systems, electronic health records, and clinical workflows. Our APIs and SDKs enable secure data exchange and interoperability across different healthcare technologies.
+
+<Columns cols={2}>
+  <Card title="HL7 Integration" icon="link" href="#hl7">
+    Standard healthcare messaging protocols for seamless data exchange.
+  </Card>
+  <Card title="RESTful APIs" icon="code" href="#apis">
+    Modern API interfaces for real-time data synchronization.
+  </Card>
+</Columns>
+
+## Integration Steps
+
+<Steps>
+  <Step title="Assess Current Systems" icon="search">
+    Evaluate your existing EMR, PACS, and laboratory systems.
+  </Step>
+  <Step title="Configure Endpoints" icon="settings">
+    Set up secure API endpoints and authentication.
+  </Step>
+  <Step title="Test Data Flow" icon="check-circle">
+    Validate data synchronization and error handling.
+  </Step>
+  <Step title="Go Live" icon="rocket">
+    Deploy in production with monitoring and support.
+  </Step>
+</Steps>
+
+<Callout kind="info">All integrations comply with Mexican health data regulations and international standards.</Callout>
+
+## API Usage
+
+<CodeGroup tabs="cURL,JavaScript">
+  ````bash
+curl -X GET "https://api.neuroglia.mx/v1/patients/P12345" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json"
+  ````
+  ````javascript
+const response = await fetch('https://api.neuroglia.mx/v1/patients/P12345', {
+  method: 'GET',
+  headers: {
+    'Authorization': `Bearer YOUR_API_KEY`,
+    'Content-Type': 'application/json'
+  }
+});
+
+const patient = await response.json();
+console.log(patient);
+  ````
+</CodeGroup>
+
+<Tabs>
+  <Tab title="HL7 FHIR" icon="file-text">
+    Standard healthcare data exchange using FHIR resources.
+  </Tab>
+  <Tab title="Custom APIs" icon="code">
+    Tailored integration points for specific clinical workflows.
+  </Tab>
+</Tabs>
+
+<ExpandableGroup>
+  <Expandable title="Handling Data Privacy" default-open="false">
+    Implement proper encryption and access controls to protect sensitive patient information.
+  </Expandable>
+  <Expandable title="Troubleshooting Integration Issues" default-open="false">
+    Check API logs, validate data formats, and ensure network connectivity for smooth operation.
+  </Expandable>
+</ExpandableGroup>
+
+## Supported Systems
+
+| System Type | Integration Method | Status |
+|-------------|-------------------|--------|
+| EMR Systems | HL7 FHIR API | Fully Supported |
+| PACS | DICOM Web Services | Beta |
+| Laboratory | LIMS Integration | Available |
+| Pharmacy | NCPDP Standards | Planned |
+
+<Callout kind="success">Over 50 hospitals in Mexico have successfully integrated our solutions.</Callout>
